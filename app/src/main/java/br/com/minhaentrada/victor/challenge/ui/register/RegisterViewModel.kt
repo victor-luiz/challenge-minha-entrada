@@ -17,7 +17,6 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
     }
 
     private val _registrationStatus = MutableLiveData<RegistrationState>()
-
     val registrationStatus: LiveData<RegistrationState> = _registrationStatus
 
     fun registerUser(username: String, email: String, password: String) {

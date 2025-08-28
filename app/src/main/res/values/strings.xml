@@ -4,4 +4,11 @@
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Senha (mínimo 6 caracteres)</string>
     <string name="button_save_register">Salvar Cadastro</string>
+    <string name="hint_password_login">Senha</string>
+    <string name="button_enter">Entrar</string>
+    <string name="button_go_to_register">Ainda não tem uma conta? Cadastre-se</string>
+    <string name="error_empty_fields">Por favor, preencha todos os campos.</string>
+    <string name="success_login">Bem-vindo(a), %1$s!</string>
+    <string name="error_user_not_found">Usuário não encontrado.</string>
+    <string name="error_invalid_password">E-mail ou senha inválidos.</string>
 </resources>
