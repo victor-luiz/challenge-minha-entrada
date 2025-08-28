@@ -1,16 +1,33 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/.name
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+# Pasta principal da IDE
+/.idea/
+
+# Arquivos de build gerados pelo sistema
+/build/
+
+# Arquivos de build locais do Gradle
+/.gradle/
+
+# Arquivos de log e binários
+*.apk
+*.aab
+*.ap_
+*.jar
+*.war
+*.ear
+*.iml
+
+# Ignorar arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Exceções: Arquivos do .idea que DEVEM ser commitados
+# para manter a consistência do projeto entre a equipe.
+!/.idea/gradle.xml
+!/.idea/misc.xml
+!/.idea/vcs.xml
+!/.idea/runConfigurations/
+!/.idea/codeStyles/
