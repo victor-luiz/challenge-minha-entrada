@@ -1,6 +1,5 @@
-package br.com.minhaentrada.victor.challenge
+package br.com.minhaentrada.victor.challenge.ui.main
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -10,7 +9,6 @@ import br.com.minhaentrada.victor.challenge.data.AppDatabase
 import br.com.minhaentrada.victor.challenge.data.UserRepository
 import br.com.minhaentrada.victor.challenge.databinding.ActivityMainBinding
 import br.com.minhaentrada.victor.challenge.ui.login.LoginActivity
-import br.com.minhaentrada.victor.challenge.ui.main.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModel.MainViewModelFactory(
             UserRepository(
-                AppDatabase.getDatabase(applicationContext).userDao()
+                AppDatabase.Companion.getDatabase(applicationContext).userDao()
             )
         )
     }
@@ -27,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
         mainViewModel.loadUserData(sharedPreferences)
         setupLogoutButton(sharedPreferences)
         observeViewModel()

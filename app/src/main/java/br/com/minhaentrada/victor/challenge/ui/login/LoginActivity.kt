@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import br.com.minhaentrada.victor.challenge.MainActivity
+import br.com.minhaentrada.victor.challenge.ui.main.MainActivity
 import br.com.minhaentrada.victor.challenge.data.AppDatabase
 import br.com.minhaentrada.victor.challenge.data.UserRepository
 import br.com.minhaentrada.victor.challenge.databinding.ActivityLoginBinding
@@ -75,8 +75,9 @@ class LoginActivity : AppCompatActivity() {
     private fun saveUserSession(userId: Long) {
         val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
         sharedPreferences.edit {
-            putBoolean("IS_LOGGED_ID", true)
+            putBoolean("IS_LOGGED_IN", true)
             putLong("LOGGED_IN_USER_ID", userId)
+            apply()
         }
     }
 
