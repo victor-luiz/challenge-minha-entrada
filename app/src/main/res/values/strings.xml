@@ -11,4 +11,6 @@
     <string name="success_login">Bem-vindo(a), %1$s!</string>
     <string name="error_user_not_found">Usuário não encontrado.</string>
     <string name="error_invalid_password">E-mail ou senha inválidos.</string>
+    <string name="main_welcome_message">Bem-vindo(a)!</string>
+    <string name="main_button_logout">Sair (Logout)</string>
 </resources>
