@@ -33,7 +33,6 @@ class MainViewModel(private val repository: UserRepository) : ViewModel() {
     fun logout(sharedPreferences: SharedPreferences) {
         sharedPreferences.edit {
             clear()
-            apply()
         }
         _logoutComplete.value = true
     }

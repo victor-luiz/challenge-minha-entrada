@@ -77,7 +77,6 @@ class LoginActivity : AppCompatActivity() {
         sharedPreferences.edit {
             putBoolean("IS_LOGGED_IN", true)
             putLong("LOGGED_IN_USER_ID", userId)
-            apply()
         }
     }
 
