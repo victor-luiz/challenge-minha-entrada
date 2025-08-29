@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import br.com.minhaentrada.victor.challenge.data.User
 import br.com.minhaentrada.victor.challenge.data.UserRepository
+import br.com.minhaentrada.victor.challenge.util.SecurityUtils
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
@@ -26,7 +27,14 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
             if (existingUser != null) {
                 _registrationStatus.value = RegistrationState.EmailAlreadyExists
             } else {
-                val newUser = User(username = username, email = email, password = password)
+                val salt = SecurityUtils.generateSalt()
+                val hashedPassword= SecurityUtils.hashPassword(password, salt)
+                val newUser = User(
+                    username = username,
+                    email = email,
+                    hashedPassword = hashedPassword,
+                    salt = salt
+                )
                 repository.insert(newUser)
                 _registrationStatus.value = RegistrationState.Success
             }

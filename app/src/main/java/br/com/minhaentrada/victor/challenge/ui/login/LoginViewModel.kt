@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import br.com.minhaentrada.victor.challenge.data.User
 import br.com.minhaentrada.victor.challenge.data.UserRepository
+import br.com.minhaentrada.victor.challenge.util.SecurityUtils
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repository: UserRepository) : ViewModel() {
@@ -17,22 +18,32 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
         object Loading : LoginState()
     }
 
-    private val _loginState = MutableLiveData<LoginState>()
-    val loginState: LiveData<LoginState> = _loginState
+    private val _loginStatus = MutableLiveData<LoginState>()
+    val loginStatus: LiveData<LoginState> = _loginStatus
 
     fun loginUser(username: String, password: String) {
         viewModelScope.launch {
-            _loginState.value = LoginState.Loading
+            _loginStatus.value = LoginState.Loading
             val user = repository.findByEmail(username)
             if (user == null) {
-                _loginState.value = LoginState.UserNotFound
+                _loginStatus.value = LoginState.UserNotFound
             } else {
-                if (user.password == password) {
-                    _loginState.value = LoginState.Success(user)
-                } else {
-                    _loginState.value = LoginState.InvalidPassword
-                }
+                verifyUserPassword(user, password)
             }
+        }
+    }
+
+    private fun verifyUserPassword(user: User, password: String) {
+        val isPasswordCorrect = SecurityUtils.verifyPassword(
+            password = password,
+            salt = user.salt,
+            hashedPassword = user.hashedPassword
+        )
+
+        if (isPasswordCorrect) {
+            _loginStatus.value = LoginState.Success(user)
+        } else {
+            _loginStatus.value = LoginState.InvalidPassword
         }
     }
 }

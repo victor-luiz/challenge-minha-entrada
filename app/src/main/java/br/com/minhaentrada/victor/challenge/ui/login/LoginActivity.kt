@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeLoginStatus() {
-        loginViewModel.loginState.observe(this) { state ->
+        loginViewModel.loginStatus.observe(this) { state ->
             when (state) {
                 is LoginViewModel.LoginState.Success -> {
                     Toast.makeText(this, getString(R.string.success_login, state.user.username), Toast.LENGTH_SHORT).show()

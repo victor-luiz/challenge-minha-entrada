@@ -16,6 +16,35 @@ data class User(
     @ColumnInfo(name = "email")
     val email: String,
 
-    @ColumnInfo(name = "password")
-    val password: String
-)
+    @ColumnInfo(name = "hashedPassword")
+    val hashedPassword: String,
+
+    @ColumnInfo(name = "salt")
+    val salt: ByteArray
+
+
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as User
+
+        if (id != other.id) return false
+        if (username != other.username) return false
+        if (email != other.email) return false
+        if (hashedPassword != other.hashedPassword) return false
+        if (!salt.contentEquals(other.salt)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + username.hashCode()
+        result = 31 * result + email.hashCode()
+        result = 31 * result + hashedPassword.hashCode()
+        result = 31 * result + salt.contentHashCode()
+        return result
+    }
+}
