@@ -14,4 +14,9 @@
     <string name="main_welcome_message">Bem-vindo(a)!</string>
     <string name="main_button_logout">Sair (Logout)</string>
     <string name="app_name_splash">Meu App</string>
+    <string name="error_weak_password">A senha deve ter no mínimo 6 caracteres.</string>
+    <string name="error_email_in_use">Este e-mail já está em uso.</string>
+    <string name="error_empty_field">Este campo não pode ser vazio</string>
+    <string name="error_invalid_email">Formato de e-mail inválido</string>
+    <string name="success_register">Cadastro realizado com sucesso!</string>
 </resources>

@@ -3,6 +3,7 @@ package br.com.minhaentrada.victor.challenge.ui.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -36,10 +37,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         binding.loginButton.setOnClickListener {
+            clearFieldErrors()
             val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
-            if (email.isBlank() || password.isBlank()) {
-                Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show()
+            if (email.isEmpty() || password.isEmpty()) {
+                if (email.isEmpty()) {
+                    binding.emailInputLayout.error = getString(R.string.error_empty_field)
+                }
+                if (password.isEmpty()) {
+                    binding.passwordInputLayout.error = getString(R.string.error_empty_field)
+                }
                 return@setOnClickListener
             }
             loginViewModel.loginUser(email, password)
@@ -53,22 +60,33 @@ class LoginActivity : AppCompatActivity() {
 
     private fun observeLoginStatus() {
         loginViewModel.loginStatus.observe(this) { state ->
+            setLoading(state is LoginViewModel.LoginState.Loading)
             when (state) {
                 is LoginViewModel.LoginState.Success -> {
-                    Toast.makeText(this, getString(R.string.success_login, state.user.username), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.success_login), Toast.LENGTH_SHORT).show()
                     saveUserSession(state.user.id)
                     goToMainActivity()
                 }
                 is LoginViewModel.LoginState.UserNotFound -> {
-                    Toast.makeText(this, getString(R.string.error_user_not_found), Toast.LENGTH_SHORT).show()
+                    binding.emailInputLayout.error = getString(R.string.error_user_not_found)
                 }
                 is LoginViewModel.LoginState.InvalidPassword -> {
-                    Toast.makeText(this, getString(R.string.error_invalid_password), Toast.LENGTH_LONG).show()
+                    binding.passwordInputLayout.error = getString(R.string.error_invalid_password)
                 }
-                is LoginViewModel.LoginState.Loading -> {
-                    // Aqui poderíamos mostrar uma ProgressBar
-                }
+                else -> {}
             }
+        }
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.loginButton.isEnabled = false
+            binding.goToRegisterButton.isEnabled = false
+        } else {
+            binding.progressBar.visibility = View.GONE
+            binding.loginButton.isEnabled = true
+            binding.goToRegisterButton.isEnabled = true
         }
     }
 
@@ -84,5 +102,10 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun clearFieldErrors() {
+        binding.emailInputLayout.error = null
+        binding.passwordInputLayout.error = null
     }
 }
