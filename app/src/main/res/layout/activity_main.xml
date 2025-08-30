@@ -9,6 +9,17 @@
         android:padding="24dp"
         tools:context=".ui.main.MainActivity"
 >
+    <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:titleTextColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+    />
     <TextView
             android:id="@+id/welcome_text_view"
             android:layout_width="wrap_content"
@@ -16,10 +27,10 @@
             android:text="@string/main_welcome_message"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/username_text_view"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/username_text_view"
             app:layout_constraintVertical_chainStyle="packed"
     />
     <TextView
@@ -28,10 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/email_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/welcome_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/welcome_text_view"
+            app:layout_constraintBottom_toTopOf="@+id/email_text_view"
             tools:text="Victor Luiz"
     />
     <TextView
@@ -40,22 +51,63 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/logout_button"
+            app:layout_constraintTop_toBottomOf="@+id/username_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username_text_view"
+            app:layout_constraintBottom_toTopOf="@+id/age_text_view"
             tools:text="victor@email.com"
     />
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/logout_button"
+    <TextView
+            android:id="@+id/age_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/email_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/location_text_view"
+            tools:text="25 anos"
+    />
+    <TextView
+            android:id="@+id/location_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/age_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/actions_layout"
+            tools:text="Tubarão - Santa Catarina"
+    />
+    <LinearLayout
+            android:id="@+id/actions_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:padding="16dp"
-            android:text="@string/main_button_logout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/location_text_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_text_view"
-    />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/delete_button"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Excluir"
+                android:layout_marginEnd="8dp"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/edit_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Editar Perfil"
+                android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

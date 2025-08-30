@@ -20,7 +20,7 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
     private val _registrationStatus = MutableLiveData<RegistrationState>()
     val registrationStatus: LiveData<RegistrationState> = _registrationStatus
 
-    fun registerUser(username: String, email: String, password: String) {
+    fun registerUser(username: String, email: String, password: String, birthDate: String, state: String, city: String) {
         viewModelScope.launch {
             _registrationStatus.value = RegistrationState.Loading
             val existingUser = repository.findByEmail(email)
@@ -33,7 +33,10 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
                     username = username,
                     email = email,
                     hashedPassword = hashedPassword,
-                    salt = salt
+                    salt = salt,
+                    birthDate = birthDate,
+                    state = state,
+                    city = city
                 )
                 repository.insert(newUser)
                 _registrationStatus.value = RegistrationState.Success

@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="states">
+        <item>Acre</item>
+        <item>Alagoas</item>
+        <item>Amapá</item>
+        <item>Amazonas</item>
+        <item>Bahia</item>
+        <item>Ceará</item>
+        <item>Distrito Federal</item>
+        <item>Espírito Santo</item>
+        <item>Goiás</item>
+        <item>Maranhão</item>
+        <item>Mato Grosso</item>
+        <item>Mato Grosso do Sul</item>
+        <item>Minas Gerais</item>
+        <item>Pará</item>
+        <item>Paraíba</item>
+        <item>Paraná</item>
+        <item>Pernambuco</item>
+        <item>Piauí</item>
+        <item>Rio de Janeiro</item>
+        <item>Rio Grande do Norte</item>
+        <item>Rio Grande do Sul</item>
+        <item>Rondônia</item>
+        <item>Roraima</item>
+        <item>Santa Catarina</item>
+        <item>São Paulo</item>
+        <item>Sergipe</item>
+        <item>Tocantins</item>
+    </string-array>
+    <string-array name="santa_catarina">
+        <item>Abdon Batista</item>
+        <item>Abelardo Luz</item>
+        <item>Agrolândia</item>
+        <item>Agronômica</item>
+        <item>Água Doce</item>
+        <item>Águas de Chapecó</item>
+        <item>Águas Frias</item>
+        <item>Águas Mornas</item>
+        <item>Alfredo Wagner</item>
+        <item>Alto Bela Vista</item>
+        <item>Anchieta</item>
+        <item>Angelina</item>
+        <item>Anita Garibaldi</item>
+        <item>Anitápolis</item>
+        <item>Antônio Carlos</item>
+        <item>Apiúna</item>
+        <item>Arabutã</item>
+        <item>Araquari</item>
+        <item>Araranguá</item>
+        <item>Armazém</item>
+        <item>Arroio Trinta</item>
+        <item>Arvoredo</item>
+        <item>Ascurra</item>
+        <item>Atalanta</item>
+        <item>Aurora</item>
+        <item>Balneário Arroio do Silva</item>
+        <item>Balneário Barra do Sul</item>
+        <item>Balneário Camboriú</item>
+        <item>Balneário Gaivota</item>
+        <item>Balneário Piçarras</item>
+        <item>Bandeirante</item>
+        <item>Barra Bonita</item>
+        <item>Barra Velha</item>
+        <item>Bela Vista do Toldo</item>
+        <item>Belmonte</item>
+        <item>Benedito Novo</item>
+        <item>Biguaçu</item>
+        <item>Blumenau</item>
+        <item>Bocaina do Sul</item>
+        <item>Bom Jardim da Serra</item>
+        <item>Bom Jesus</item>
+        <item>Bom Jesus do Oeste</item>
+        <item>Bom Retiro</item>
+        <item>Bombinhas</item>
+        <item>Botuverá</item>
+        <item>Braço do Norte</item>
+        <item>Braço do Trombudo</item>
+        <item>Brunópolis</item>
+        <item>Brusque</item>
+        <item>Caçador</item>
+        <item>Caibi</item>
+        <item>Calmon</item>
+        <item>Camboriú</item>
+        <item>Campo Alegre</item>
+        <item>Campo Belo do Sul</item>
+        <item>Campo Erê</item>
+        <item>Campos Novos</item>
+        <item>Canelinha</item>
+        <item>Canoinhas</item>
+        <item>Capão Alto</item>
+        <item>Capinzal</item>
+        <item>Capivari de Baixo</item>
+        <item>Catanduvas</item>
+        <item>Caxambu do Sul</item>
+        <item>Celso Ramos</item>
+        <item>Cerro Negro</item>
+        <item>Chapadão do Lageado</item>
+        <item>Chapecó</item>
+        <item>Cocal do Sul</item>
+        <item>Concórdia</item>
+        <item>Cordilheira Alta</item>
+        <item>Coronel Freitas</item>
+        <item>Coronel Martins</item>
+        <item>Correia Pinto</item>
+        <item>Corupá</item>
+        <item>Criciúma</item>
+        <item>Cunha Porã</item>
+        <item>Cunhataí</item>
+        <item>Curitibanos</item>
+        <item>Descanso</item>
+        <item>Dionísio Cerqueira</item>
+        <item>Dona Emma</item>
+        <item>Doutor Pedrinho</item>
+        <item>Entre Rios</item>
+        <item>Ermo</item>
+        <item>Erval Velho</item>
+        <item>Faxinal dos Guedes</item>
+        <item>Flor do Sertão</item>
+        <item>Florianópolis</item>
+        <item>Formosa do Sul</item>
+        <item>Forquilhinha</item>
+        <item>Frai David</item>
+        <item>Fraiburgo</item>
+        <item>Frei Rogério</item>
+        <item>Galvão</item>
+        <item>Garopaba</item>
+        <item>Garuva</item>
+        <item>Gaspar</item>
+        <item>Governador Celso Ramos</item>
+        <item>Grão Pará</item>
+        <item>Gravatal</item>
+        <item>Guabiruba</item>
+        <item>Guaraciaba</item>
+        <item>Guaramirim</item>
+        <item>Guarujá do Sul</item>
+        <item>Guatambú</item>
+        <item>Herval d\'Oeste</item>
+        <item>Ibiam</item>
+        <item>Ibicaré</item>
+        <item>Ibirama</item>
+        <item>Içara</item>
+        <item>Ilhota</item>
+        <item>Imaruí</item>
+        <item>Imbituba</item>
+        <item>Imbuia</item>
+        <item>Indaial</item>
+        <item>Iomerê</item>
+        <item>Ipira</item>
+        <item>Iporã do Oeste</item>
+        <item>Ipuaçu</item>
+        <item>Ipumirim</item>
+        <item>Iraceminha</item>
+        <item>Irani</item>
+        <item>Irati</item>
+        <item>Irineópolis</item>
+        <item>Itá</item>
+        <item>Itaiópolis</item>
+        <item>Itajaí</item>
+        <item>Itapema</item>
+        <item>Itapiranga</item>
+        <item>Itapoá</item>
+        <item>Ituporanga</item>
+        <item>Jaborá</item>
+        <item>Jacinto Machado</item>
+        <item>Jaguaruna</item>
+        <item>Jaraguá do Sul</item>
+        <item>Jardinópolis</item>
+        <item>Joaçaba</item>
+        <item>Joinville</item>
+        <item>José Boiteux</item>
+        <item>Jupiá</item>
+        <item>Lacerdópolis</item>
+        <item>Lages</item>
+        <item>Laguna</item>
+        <item>Lajeado Grande</item>
+        <item>Laurentino</item>
+        <item>Lauro Muller</item>
+        <item>Lebon Régis</item>
+        <item>Leoberto Leal</item>
+        <item>Lindóia do Sul</item>
+        <item>Lontras</item>
+        <item>Luiz Alves</item>
+        <item>Luzerna</item>
+        <item>Macieira</item>
+        <item>Mafra</item>
+        <item>Major Gercino</item>
+        <item>Major Vieira</item>
+        <item>Maracajá</item>
+        <item>Maravilha</item>
+        <item>Marema</item>
+        <item>Massaranduba</item>
+        <item>Matos Costa</item>
+        <item>Meleiro</item>
+        <item>Mirim Doce</item>
+        <item>Modelo</item>
+        <item>Mondaí</item>
+        <item>Monte Carlo</item>
+        <item>Monte Castelo</item>
+        <item>Morro da Fumaça</item>
+        <item>Morro Grande</item>
+        <item>Navegantes</item>
+        <item>Nova Erechim</item>
+        <item>Nova Itaberaba</item>
+        <item>Nova Trento</item>
+        <item>Nova Veneza</item>
+        <item>Novo Horizonte</item>
+        <item>Orleans</item>
+        <item>Otacílio Costa</item>
+        <item>Ouro</item>
+        <item>Ouro Verde</item>
+        <item>Paial</item>
+        <item>Painel</item>
+        <item>Palhoça</item>
+        <item>Palma Sola</item>
+        <item>Palmeira</item>
+        <item>Palmitos</item>
+        <item>Papanduva</item>
+        <item>Paraíso</item>
+        <item>Passo de Torres</item>
+        <item>Passos Maia</item>
+        <item>Paulo Lopes</item>
+        <item>Pedras Grandes</item>
+        <item>Penha</item>
+        <item>Peritiba</item>
+        <item>Pescaria Brava</item>
+        <item>Petrolândia</item>
+        <item>Pinhalzinho</item>
+        <item>Pinheiro Preto</item>
+        <item>Piratuba</item>
+        <item>Planalto Alegre</item>
+        <item>Pomerode</item>
+        <item>Ponte Alta</item>
+        <item>Ponte Alta do Norte</item>
+        <item>Ponte Serrada</item>
+        <item>Porto Belo</item>
+        <item>Porto União</item>
+        <item>Pouso Redondo</item>
+        <item>Praia Grande</item>
+        <item>Presidente Castello Branco</item>
+        <item>Presidente Getúlio</item>
+        <item>Presidente Nereu</item>
+        <item>Princesa</item>
+        <item>Quilombo</item>
+        <item>Rancho Queimado</item>
+        <item>Rio das Antas</item>
+        <item>Rio do Campo</item>
+        <item>Rio do Oeste</item>
+        <item>Rio do Sul</item>
+        <item>Rio dos Cedros</item>
+        <item>Rio Fortuna</item>
+        <item>Rio Negrinho</item>
+        <item>Rio Rufino</item>
+        <item>Riqueza</item>
+        <item>Rodeio</item>
+        <item>Romelândia</item>
+        <item>Salete</item>
+        <item>Saltinho</item>
+        <item>Salto Veloso</item>
+        <item>Sangão</item>
+        <item>Santa Cecília</item>
+        <item>Santa Helena</item>
+        <item>Santa Rosa de Lima</item>
+        <item>Santa Rosa do Sul</item>
+        <item>Santa Terezinha</item>
+        <item>Santa Terezinha do Progresso</item>
+        <item>Santiago do Sul</item>
+        <item>Santo Amaro da Imperatriz</item>
+        <item>São Bento do Sul</item>
+        <item>São Bernardino</item>
+        <item>São Bonifácio</item>
+        <item>São Carlos</item>
+        <item>São Cristovão do Sul</item>
+        <item>São Domingos</item>
+        <item>São Francisco do Sul</item>
+        <item>São João Batista</item>
+        <item>São João do Itaperiú</item>
+        <item>São João do Oeste</item>
+        <item>São João do Sul</item>
+        <item>São Joaquim</item>
+        <item>São José</item>
+        <item>São José do Cedro</item>
+        <item>São José do Cerrito</item>
+        <item>São Lourenço do Oeste</item>
+        <item>São Ludgero</item>
+        <item>São Martinho</item>
+        <item>São Miguel da Boa Vista</item>
+        <item>São Miguel do Oeste</item>
+        <item>São Pedro de Alcântara</item>
+        <item>Saudades</item>
+        <item>Schroeder</item>
+        <item>Seara</item>
+        <item>Serra Alta</item>
+        <item>Siderópolis</item>
+        <item>Sombrio</item>
+        <item>Sul Brasil</item>
+        <item>Taió</item>
+        <item>Tangará</item>
+        <item>Tigrinhos</item>
+        <item>Tijucas</item>
+        <item>Timbé do Sul</item>
+        <item>Timbó</item>
+        <item>Timbó Grande</item>
+        <item>Três Barras</item>
+        <item>Treviso</item>
+        <item>Treze de Maio</item>
+        <item>Treze Tílias</item>
+        <item>Trombudo Central</item>
+        <item>Tubarão</item>
+        <item>Tunápolis</item>
+        <item>Turvo</item>
+        <item>União do Oeste</item>
+        <item>Urubici</item>
+        <item>Urupema</item>
+        <item>Urussanga</item>
+        <item>Vargeão</item>
+        <item>Vargem</item>
+        <item>Vargem Bonita</item>
+        <item>Vidal Ramos</item>
+        <item>Videira</item>
+        <item>Vitor Meireles</item>
+        <item>Witmarsum</item>
+        <item>Xanxerê</item>
+        <item>Xavantina</item>
+        <item>Xaxim</item>
+        <item>Zortéa</item>
+    </string-array>
+    <string-array name="acre">
+        <item>Rio Branco</item>
+        <item>Cruzeiro do Sul</item>
+        <item>Sena Madureira</item>
+    </string-array>
+    <string-array name="alagoas">
+        <item>Maceió</item>
+        <item>Arapiraca</item>
+        <item>Maragogi</item>
+    </string-array>
+    <string-array name="amapa">
+        <item>Macapá</item>
+        <item>Santana</item>
+        <item>Laranjal do Jari</item>
+    </string-array>
+    <string-array name="amazonas">
+        <item>Manaus</item>
+        <item>Parintins</item>
+        <item>Itacoatiara</item>
+    </string-array>
+    <string-array name="bahia">
+        <item>Salvador</item>
+        <item>Porto Seguro</item>
+        <item>Feira de Santana</item>
+    </string-array>
+    <string-array name="ceara">
+        <item>Fortaleza</item>
+        <item>Juazeiro do Norte</item>
+        <item>Sobral</item>
+    </string-array>
+    <string-array name="distrito_federal">
+        <item>Brasília</item>
+        <item>Taguatinga</item>
+        <item>Ceilândia</item>
+    </string-array>
+    <string-array name="espirito_santo">
+        <item>Vitória</item>
+        <item>Vila Velha</item>
+        <item>Guarapari</item>
+    </string-array>
+    <string-array name="goias">
+        <item>Goiânia</item>
+        <item>Aparecida de Goiânia</item>
+        <item>Anápolis</item>
+    </string-array>
+    <string-array name="maranhao">
+        <item>São Luís</item>
+        <item>Imperatriz</item>
+        <item>Barreirinhas</item>
+    </string-array>
+    <string-array name="mato_grosso">
+        <item>Cuiabá</item>
+        <item>Várzea Grande</item>
+        <item>Rondonópolis</item>
+    </string-array>
+    <string-array name="mato_grosso_do_sul">
+        <item>Campo Grande</item>
+        <item>Dourados</item>
+        <item>Bonito</item>
+    </string-array>
+    <string-array name="minas_gerais">
+        <item>Belo Horizonte</item>
+        <item>Uberlândia</item>
+        <item>Ouro Preto</item>
+    </string-array>
+    <string-array name="para">
+        <item>Belém</item>
+        <item>Santarém</item>
+        <item>Marabá</item>
+    </string-array>
+    <string-array name="paraiba">
+        <item>João Pessoa</item>
+        <item>Campina Grande</item>
+        <item>Cabedelo</item>
+    </string-array>
+    <string-array name="parana">
+        <item>Curitiba</item>
+        <item>Londrina</item>
+        <item>Foz do Iguaçu</item>
+    </string-array>
+    <string-array name="pernambuco">
+        <item>Recife</item>
+        <item>Olinda</item>
+        <item>Porto de Galinhas</item>
+    </string-array>
+    <string-array name="piaui">
+        <item>Teresina</item>
+        <item>Parnaíba</item>
+        <item>Picos</item>
+    </string-array>
+    <string-array name="rio_de_janeiro">
+        <item>Rio de Janeiro</item>
+        <item>Niterói</item>
+        <item>Angra dos Reis</item>
+    </string-array>
+    <string-array name="rio_grande_do_norte">
+        <item>Natal</item>
+        <item>Mossoró</item>
+        <item>Pipa</item>
+    </string-array>
+    <string-array name="rio_grande_do_sul">
+        <item>Porto Alegre</item>
+        <item>Gramado</item>
+        <item>Caxias do Sul</item>
+    </string-array>
+    <string-array name="rondonia">
+        <item>Porto Velho</item>
+        <item>Ji-Paraná</item>
+        <item>Ariquemes</item>
+    </string-array>
+    <string-array name="roraima">
+        <item>Boa Vista</item>
+        <item>Caracaraí</item>
+        <item>Rorainópolis</item>
+    </string-array>
+    <string-array name="sao_paulo">
+        <item>São Paulo</item>
+        <item>Campinas</item>
+        <item>Santos</item>
+    </string-array>
+    <string-array name="sergipe">
+        <item>Aracaju</item>
+        <item>Nossa Senhora do Socorro</item>
+        <item>Estância</item>
+    </string-array>
+    <string-array name="tocantins">
+        <item>Palmas</item>
+        <item>Araguaína</item>
+        <item>Gurupi</item>
+    </string-array>
+</resources>

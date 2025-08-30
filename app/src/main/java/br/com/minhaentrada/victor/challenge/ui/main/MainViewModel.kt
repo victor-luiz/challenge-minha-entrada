@@ -19,6 +19,9 @@ class MainViewModel(private val repository: UserRepository) : ViewModel() {
     private val _logoutComplete = MutableLiveData<Boolean>()
     val logoutComplete: LiveData<Boolean> = _logoutComplete
 
+    private val _deleteComplete = MutableLiveData<Boolean>()
+    val deleteComplete: LiveData<Boolean> = _deleteComplete
+
     fun loadUserData(sharedPreferences: SharedPreferences) {
         val userId = sharedPreferences.getLong("LOGGED_IN_USER_ID", -1L)
         if (userId != -1L) {
@@ -27,6 +30,16 @@ class MainViewModel(private val repository: UserRepository) : ViewModel() {
             }
         } else {
             _user.value = null
+        }
+    }
+
+    fun deleteUser(user: User, sharedPreferences: SharedPreferences) {
+        viewModelScope.launch {
+            repository.delete(user)
+            sharedPreferences.edit{
+                clear()
+            }
+            _deleteComplete.value = true
         }
     }
 

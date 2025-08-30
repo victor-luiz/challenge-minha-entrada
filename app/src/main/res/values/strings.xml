@@ -19,4 +19,8 @@
     <string name="error_empty_field">Este campo não pode ser vazio</string>
     <string name="error_invalid_email">Formato de e-mail inválido</string>
     <string name="success_register">Cadastro realizado com sucesso!</string>
+    <string name="hint_birthdate">Data de Nascimento (DD/MM/AAAA)</string>
+    <string name="hint_state">Estado (UF)</string>
+    <string name="hint_city">Cidade</string>
+    <string name="menu_logout">Sair</string>
 </resources>

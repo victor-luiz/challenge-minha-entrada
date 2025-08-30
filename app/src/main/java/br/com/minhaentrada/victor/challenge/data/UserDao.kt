@@ -1,9 +1,11 @@
 package br.com.minhaentrada.victor.challenge.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface UserDao {
@@ -16,4 +18,10 @@ interface UserDao {
 
     @Query("SELECT * FROM users WHERE id = :userId")
     suspend fun findById(userId: Long): User?
+
+    @Update
+    suspend fun update(user: User)
+
+    @Delete
+    suspend fun delete(user: User)
 }
