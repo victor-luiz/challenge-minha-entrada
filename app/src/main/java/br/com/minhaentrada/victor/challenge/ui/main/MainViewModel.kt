@@ -10,11 +10,19 @@ import br.com.minhaentrada.victor.challenge.data.UserRepository
 import kotlinx.coroutines.launch
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModelProvider
+import br.com.minhaentrada.victor.challenge.data.Event
+import br.com.minhaentrada.victor.challenge.data.EventRepository
 
-class MainViewModel(private val repository: UserRepository) : ViewModel() {
+class MainViewModel(
+    private val userRepository: UserRepository,
+    private val eventRepository: EventRepository
+) : ViewModel() {
 
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> = _user
+
+    private val _events = MutableLiveData<List<Event>>()
+    val events: LiveData<List<Event>> = _events
 
     private val _logoutComplete = MutableLiveData<Boolean>()
     val logoutComplete: LiveData<Boolean> = _logoutComplete
@@ -22,11 +30,14 @@ class MainViewModel(private val repository: UserRepository) : ViewModel() {
     private val _deleteComplete = MutableLiveData<Boolean>()
     val deleteComplete: LiveData<Boolean> = _deleteComplete
 
-    fun loadUserData(sharedPreferences: SharedPreferences) {
+    fun loadInitialData(sharedPreferences: SharedPreferences) {
         val userId = sharedPreferences.getLong("LOGGED_IN_USER_ID", -1L)
         if (userId != -1L) {
             viewModelScope.launch {
-                _user.value = repository.findById(userId)
+                _user.value = userRepository.findById(userId)
+                eventRepository.getAllEventsFromUser(userId).collect { events ->
+                    _events.value = events
+                }
             }
         } else {
             _user.value = null
@@ -35,7 +46,7 @@ class MainViewModel(private val repository: UserRepository) : ViewModel() {
 
     fun deleteUser(user: User, sharedPreferences: SharedPreferences) {
         viewModelScope.launch {
-            repository.delete(user)
+            userRepository.delete(user)
             sharedPreferences.edit{
                 clear()
             }
@@ -49,15 +60,17 @@ class MainViewModel(private val repository: UserRepository) : ViewModel() {
         }
         _logoutComplete.value = true
     }
+}
 
-    class MainViewModelFactory(private val repository: UserRepository) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return MainViewModel(repository) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel class")
+class MainViewModelFactory(
+    private val userRepository: UserRepository,
+    private val eventRepository: EventRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return MainViewModel(userRepository, eventRepository) as T
         }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
-
 }

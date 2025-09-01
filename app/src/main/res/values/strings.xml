@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Challenge</string>
+    <string name="app_name">Desafio Victor Luiz</string>
     <string name="hint_username">Nome de usuário</string>
     <string name="hint_email">E-mail</string>
     <string name="hint_password">Senha (mínimo 6 caracteres)</string>
@@ -19,8 +19,23 @@
     <string name="error_empty_field">Este campo não pode ser vazio</string>
     <string name="error_invalid_email">Formato de e-mail inválido</string>
     <string name="success_register">Cadastro realizado com sucesso!</string>
-    <string name="hint_birthdate">Data de Nascimento (DD/MM/AAAA)</string>
+    <string name="hint_birthdate">Data de Nascimento</string>
     <string name="hint_state">Estado (UF)</string>
     <string name="hint_city">Cidade</string>
     <string name="menu_logout">Sair</string>
+    <string name="category_event_party">Festa</string>
+    <string name="category_event_show">Show</string>
+    <string name="category_event_sports">Esportes</string>
+    <string name="category_event_comedy">Comédia</string>
+    <string name="category_event_theater">Teatro</string>
+    <string name="menu_edit">Editar</string>
+    <string name="menu_delete">Excluir</string>
+    <string name="menu_edit_profile">Editar Perfil</string>
+    <string name="menu_delete_account">Excluir Conta</string>
+    <string name="main_empty_list_message">Você ainda não tem eventos.\nClique no + para criar o primeiro!</string>
+    <string name="hint_confirm_password">Confirmar Senha</string>
+    <string name="register_title_welcome">Bem-vindo(a),</string>
+    <string name="register_subtitle_create">Crie sua conta</string>
+    <string name="register_go_to_login">Já tem uma conta? Faça o login</string>
+    <string name="login_title">Bem vindo ao nosso aplicativo!</string>
 </resources>

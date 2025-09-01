@@ -24,12 +24,6 @@ data class User(
 
     @ColumnInfo(name = "birth_date")
     val birthDate: String? = null,
-
-    @ColumnInfo(name = "state")
-    val state: String? = null,
-
-    @ColumnInfo(name = "city")
-    val city: String? = null,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -43,8 +37,6 @@ data class User(
         if (hashedPassword != other.hashedPassword) return false
         if (!salt.contentEquals(other.salt)) return false
         if (birthDate != other.birthDate) return false
-        if (state != other.state) return false
-        if (city != other.city) return false
 
         return true
     }
@@ -56,8 +48,6 @@ data class User(
         result = 31 * result + hashedPassword.hashCode()
         result = 31 * result + salt.contentHashCode()
         result = 31 * result + (birthDate?.hashCode() ?: 0)
-        result = 31 * result + (state?.hashCode() ?: 0)
-        result = 31 * result + (city?.hashCode() ?: 0)
         return result
     }
 

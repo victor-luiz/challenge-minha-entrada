@@ -11,7 +11,6 @@ import br.com.minhaentrada.victor.challenge.data.AppDatabase
 import br.com.minhaentrada.victor.challenge.data.UserRepository
 import br.com.minhaentrada.victor.challenge.databinding.ActivityRegisterBinding
 import br.com.minhaentrada.victor.challenge.R
-import java.util.Calendar
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -30,29 +29,9 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupBirthDateField()
+        binding.birthdateInput.setupDatePicker(supportFragmentManager)
         setupRegisterButton()
         observeRegistrationStatus()
-    }
-
-    private fun setupBirthDateField() {
-        binding.birthdateEditText.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-            val datePickerDialog = DatePickerDialog(
-                this,
-                {_, selectedYear, selectedMonth, selectedDay ->
-                    val formattedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-                    binding.birthdateEditText.setText(formattedDate)
-                },
-                year,
-                month,
-                day
-            )
-            datePickerDialog.show()
-        }
     }
 
 
@@ -62,11 +41,10 @@ class RegisterActivity : AppCompatActivity() {
             val username = binding.usernameEditText.text.toString().trim()
             val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
-            val birthDate = binding.birthdateEditText.text.toString().trim()
-            val state = binding.locationSelector.selectedState
-            val city = binding.locationSelector.selectedCity
-            if (validateInput(username, email, password, birthDate, state, city)) {
-                registerViewModel.registerUser(username, email, password, birthDate, state, city)
+            val confirm = binding.confirmPasswordEditText.text.toString().trim()
+            val birthDate = binding.birthdateInput.text
+            if (validateInput(username, email, password, birthDate, confirm)) {
+                registerViewModel.registerUser(username, email, password, birthDate)
             }
         }
     }
@@ -76,10 +54,9 @@ class RegisterActivity : AppCompatActivity() {
         email: String,
         password: String,
         birthDate: String,
-        state: String,
-        city: String
+        confirm: String
     ): Boolean {
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || birthDate.isEmpty() || state.isEmpty() || city.isEmpty()) {
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || birthDate.isEmpty()) {
             if (username.isEmpty()) {
                 binding.usernameInputLayout.error = getString(R.string.error_empty_field)
             }
@@ -89,7 +66,6 @@ class RegisterActivity : AppCompatActivity() {
             if (password.isEmpty()) {
                 binding.passwordInputLayout.error = getString(R.string.error_empty_field)
             }
-            binding.locationSelector.validateFields()
             return false
         }
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -104,7 +80,10 @@ class RegisterActivity : AppCompatActivity() {
             binding.birthdateInputLayout.error = getString(R.string.error_empty_field)
             return false
         }
-
+        if (password != confirm) {
+            binding.confirmPasswordInputLayout.error = "As senhas não conferem."
+            return false
+        }
         return true
     }
 
@@ -134,6 +113,9 @@ class RegisterActivity : AppCompatActivity() {
                     binding.registerButton.isEnabled = false
                 }
             }
+        }
+        binding.goToLoginButton.setOnClickListener {
+            finish()
         }
     }
 }

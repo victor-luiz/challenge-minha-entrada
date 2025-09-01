@@ -24,22 +24,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:hint="@string/hint_birthdate"
     >
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/birthdate_edit_text_edit"
+        <br.com.minhaentrada.victor.challenge.ui.components.DatePickerInputView
+                android:id="@+id/birthdate_input_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                android:clickable="true"
-                android:inputType="date"
+                android:layout_marginTop="16dp"
+                android:hint="@string/hint_birthdate"
         />
     </com.google.android.material.textfield.TextInputLayout>
-    <br.com.minhaentrada.victor.challenge.ui.components.LocationSelectorView
-            android:id="@+id/location_selector_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-    />
 </LinearLayout>

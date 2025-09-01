@@ -27,8 +27,6 @@ class EditProfileViewModel(private val repository: UserRepository) : ViewModel()
         userId: Long,
         newUsername: String,
         newBirthDate: String,
-        newState: String,
-        newCity: String
     ) {
         viewModelScope.launch {
             val user = repository.findById(userId)
@@ -36,8 +34,6 @@ class EditProfileViewModel(private val repository: UserRepository) : ViewModel()
                 val updateUser = user.copy(
                     username = newUsername,
                     birthDate = newBirthDate,
-                    city = newCity,
-                    state = newState
                 )
                 repository.update(updateUser)
                 _updateStatus.value = true

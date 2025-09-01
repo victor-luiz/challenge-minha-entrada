@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import br.com.minhaentrada.victor.challenge.R
 import br.com.minhaentrada.victor.challenge.data.AppDatabase
 import br.com.minhaentrada.victor.challenge.data.UserRepository
+import br.com.minhaentrada.victor.challenge.ui.components.DatePickerInputView
 import br.com.minhaentrada.victor.challenge.ui.components.LocationSelectorView
-import java.util.Calendar
 
 class EditProfileDialogFragment : DialogFragment() {
 
@@ -22,8 +22,7 @@ class EditProfileDialogFragment : DialogFragment() {
     }
 
     private lateinit var usernameEditText: EditText
-    private lateinit var birthdateEditText: EditText
-    private lateinit var locationSelector: LocationSelectorView
+    private lateinit var datePickerInput: DatePickerInputView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireActivity())
@@ -31,8 +30,9 @@ class EditProfileDialogFragment : DialogFragment() {
         val view = inflater.inflate(R.layout.dialog_edit_profile, null)
 
         usernameEditText = view.findViewById(R.id.username_edit_text_edit)
-        birthdateEditText = view.findViewById(R.id.birthdate_edit_text_edit)
-        locationSelector = view.findViewById(R.id.location_selector_edit)
+        datePickerInput = view.findViewById(R.id.birthdate_input_edit)
+
+        datePickerInput.setupDatePicker(parentFragmentManager)
 
         val userId = arguments?.getLong(ARG_USER_ID) ?: -1L
 
@@ -41,17 +41,14 @@ class EditProfileDialogFragment : DialogFragment() {
         }
 
         observeViewModel()
-        setupBirthDateListener()
 
         builder.setView(view)
             .setTitle("Editar Perfil")
             .setPositiveButton("Editar") { dialog, id ->
                 val newUsername = usernameEditText.text.toString().trim()
-                val newBirthDate = birthdateEditText.text.toString().trim()
-                val newCity = locationSelector.selectedCity
-                val newState = locationSelector.selectedState
+                val newBirthDate = datePickerInput.text
                 if (newUsername.isNotEmpty()) {
-                    viewModel.updateUser(userId, newUsername, newBirthDate, newState, newCity)
+                    viewModel.updateUser(userId, newUsername, newBirthDate)
                 }
             }
             .setNegativeButton("Cancelar") { dialog, id ->
@@ -64,8 +61,7 @@ class EditProfileDialogFragment : DialogFragment() {
         viewModel.user.observe(this) { user ->
             user?.let {
                 usernameEditText.setText(it.username)
-                birthdateEditText.setText(it.birthDate)
-                locationSelector.setInitialLocation(it.state, it.city)
+                datePickerInput.text = it.birthDate ?: ""
             }
         }
         viewModel.updateStatus.observe(this) { isSuccess ->
@@ -73,27 +69,6 @@ class EditProfileDialogFragment : DialogFragment() {
                 parentFragmentManager.setFragmentResult("profileEdited", Bundle.EMPTY)
                 dismiss()
             }
-        }
-    }
-
-    private fun setupBirthDateListener() {
-        birthdateEditText.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-            val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                { _, selectedYear, selectedMonth, selectedDay ->
-                    val formattedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-                    birthdateEditText.setText(formattedDate)
-                },
-                year,
-                month,
-                day
-            )
-            datePickerDialog.show()
         }
     }
 

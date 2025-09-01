@@ -53,7 +53,7 @@ class MainViewModelTest {
         every { sharedPreferences.getLong("LOGGED_IN_USER_ID", -1L) } returns userId
         coEvery { repository.findById(userId) } returns user
 
-        viewModel.loadUserData(sharedPreferences)
+        viewModel.loadInitialData(sharedPreferences)
         val userFromLiveData = viewModel.user.value
         assertEquals(user, userFromLiveData)
     }
@@ -62,7 +62,7 @@ class MainViewModelTest {
     fun `loadUserData with invalid userId should post null to LiveData`() {
         every { sharedPreferences.getLong("LOGGED_IN_USER_ID", -1L) } returns -1L
 
-        viewModel.loadUserData(sharedPreferences)
+        viewModel.loadInitialData(sharedPreferences)
         val userFromLiveData = viewModel.user.value
         assertEquals(null, userFromLiveData)
     }
