@@ -14,6 +14,7 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
     sealed class RegistrationState {
         object Success : RegistrationState()
         object EmailAlreadyExists : RegistrationState()
+        object UsernameAlreadyExists : RegistrationState()
         object Loading : RegistrationState()
     }
 
@@ -23,10 +24,7 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
     fun registerUser(username: String, email: String, password: String, birthDate: String) {
         viewModelScope.launch {
             _registrationStatus.value = RegistrationState.Loading
-            val existingUser = repository.findByEmail(email)
-            if (existingUser != null) {
-                _registrationStatus.value = RegistrationState.EmailAlreadyExists
-            } else {
+            if (validateUserAlreadyExists(username, email)) {
                 val salt = SecurityUtils.generateSalt()
                 val hashedPassword= SecurityUtils.hashPassword(password, salt)
                 val newUser = User(
@@ -40,6 +38,21 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
                 _registrationStatus.value = RegistrationState.Success
             }
         }
+    }
+
+    suspend fun validateUserAlreadyExists(username: String, email: String): Boolean {
+        val existingUserByUsername = repository.findByUsername(username)
+        if (existingUserByUsername != null) {
+            _registrationStatus.value = RegistrationState.UsernameAlreadyExists
+            return false
+
+        }
+        val existingUserByEmail = repository.findByEmail(email)
+        if (existingUserByEmail != null) {
+            _registrationStatus.value = RegistrationState.EmailAlreadyExists
+            return false
+        }
+        return true
     }
 }
 

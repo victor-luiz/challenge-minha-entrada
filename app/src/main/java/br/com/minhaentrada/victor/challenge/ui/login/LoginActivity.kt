@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.com.minhaentrada.victor.challenge.ui.main.MainActivity
@@ -38,11 +37,11 @@ class LoginActivity : AppCompatActivity() {
     private fun setupListeners() {
         binding.loginButton.setOnClickListener {
             clearFieldErrors()
-            val email = binding.emailEditText.text.toString().trim()
+            val email = binding.loginEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
             if (email.isEmpty() || password.isEmpty()) {
                 if (email.isEmpty()) {
-                    binding.emailInputLayout.error = getString(R.string.error_empty_field)
+                    binding.loginInputLayout.error = getString(R.string.error_empty_field)
                 }
                 if (password.isEmpty()) {
                     binding.passwordInputLayout.error = getString(R.string.error_empty_field)
@@ -63,12 +62,11 @@ class LoginActivity : AppCompatActivity() {
             setLoading(state is LoginViewModel.LoginState.Loading)
             when (state) {
                 is LoginViewModel.LoginState.Success -> {
-                    Toast.makeText(this, getString(R.string.success_login), Toast.LENGTH_SHORT).show()
                     saveUserSession(state.user.id)
                     goToMainActivity()
                 }
                 is LoginViewModel.LoginState.UserNotFound -> {
-                    binding.emailInputLayout.error = getString(R.string.error_user_not_found)
+                    binding.loginInputLayout.error = getString(R.string.error_user_not_found)
                 }
                 is LoginViewModel.LoginState.InvalidPassword -> {
                     binding.passwordInputLayout.error = getString(R.string.error_invalid_password)
@@ -105,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun clearFieldErrors() {
-        binding.emailInputLayout.error = null
+        binding.loginInputLayout.error = null
         binding.passwordInputLayout.error = null
     }
 }

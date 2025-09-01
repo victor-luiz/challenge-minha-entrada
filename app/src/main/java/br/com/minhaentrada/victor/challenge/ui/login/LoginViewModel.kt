@@ -24,7 +24,7 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
     fun loginUser(username: String, password: String) {
         viewModelScope.launch {
             _loginStatus.value = LoginState.Loading
-            val user = repository.findByEmail(username)
+            val user = repository.findByUsername(username) ?: repository.findByEmail(username)
             if (user == null) {
                 _loginStatus.value = LoginState.UserNotFound
             } else {

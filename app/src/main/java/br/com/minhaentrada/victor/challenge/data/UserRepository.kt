@@ -10,6 +10,10 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.findByEmail(email)
     }
 
+    suspend fun findByUsername(username: String): User? {
+        return userDao.findByUsername(username)
+    }
+
     suspend fun findById(userId: Long): User? {
         return userDao.findById(userId)
     }

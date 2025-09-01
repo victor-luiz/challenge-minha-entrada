@@ -2,6 +2,7 @@
     <string name="app_name">Desafio Victor Luiz</string>
     <string name="hint_username">Nome de usuário</string>
     <string name="hint_email">E-mail</string>
+    <string name="hint_email_username">E-mail ou Nome de Usuário</string>
     <string name="hint_password">Senha (mínimo 6 caracteres)</string>
     <string name="button_save_register">Salvar Cadastro</string>
     <string name="hint_password_login">Senha</string>
@@ -16,6 +17,7 @@
     <string name="app_name_splash">Meu App</string>
     <string name="error_weak_password">A senha deve ter no mínimo 6 caracteres.</string>
     <string name="error_email_in_use">Este e-mail já está em uso.</string>
+    <string name="error_username_in_use">Este nome usuário já está em uso.</string>
     <string name="error_empty_field">Este campo não pode ser vazio</string>
     <string name="error_invalid_email">Formato de e-mail inválido</string>
     <string name="success_register">Cadastro realizado com sucesso!</string>

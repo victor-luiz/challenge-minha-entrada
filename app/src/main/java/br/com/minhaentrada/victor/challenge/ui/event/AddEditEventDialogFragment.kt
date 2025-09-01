@@ -79,8 +79,6 @@ class AddEditEventDialogFragment : DialogFragment() {
                 val state = locationSelector.selectedState
                 val city = locationSelector.selectedCity
 
-                // TODO: Adicionar validação de campos vazios
-
                 viewModel.saveEvent(userId, title, description, selectedCalendar.time, category, city, state)
             }
             .setNegativeButton("Cancelar") { dialog, _ ->

@@ -56,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
         birthDate: String,
         confirm: String
     ): Boolean {
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || birthDate.isEmpty()) {
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || birthDate.isEmpty() || birthDate.isEmpty()) {
             if (username.isEmpty()) {
                 binding.usernameInputLayout.error = getString(R.string.error_empty_field)
             }
@@ -66,6 +66,9 @@ class RegisterActivity : AppCompatActivity() {
             if (password.isEmpty()) {
                 binding.passwordInputLayout.error = getString(R.string.error_empty_field)
             }
+            if (birthDate.isEmpty()) {
+                binding.birthdateInputLayout.error = getString(R.string.error_empty_field)
+            }
             return false
         }
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -74,10 +77,6 @@ class RegisterActivity : AppCompatActivity() {
         }
         if (password.length < 6) {
             binding.passwordInputLayout.error = getString(R.string.error_weak_password)
-            return false
-        }
-        if (birthDate.isEmpty()) {
-            binding.birthdateInputLayout.error = getString(R.string.error_empty_field)
             return false
         }
         if (password != confirm) {
@@ -108,10 +107,16 @@ class RegisterActivity : AppCompatActivity() {
                     binding.registerButton.isEnabled = true
                     binding.emailInputLayout.error = getString(R.string.error_email_in_use)
                 }
+                is RegisterViewModel.RegistrationState.UsernameAlreadyExists -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.registerButton.isEnabled = true
+                    binding.usernameInputLayout.error = getString(R.string.error_username_in_use)
+                }
                 is RegisterViewModel.RegistrationState.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.registerButton.isEnabled = false
                 }
+                else -> {}
             }
         }
         binding.goToLoginButton.setOnClickListener {
