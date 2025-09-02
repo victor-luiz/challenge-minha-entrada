@@ -26,7 +26,7 @@ class RegisterViewModel @Inject constructor(
     private val _registrationStatus = MutableLiveData<RegistrationState>()
     val registrationStatus: LiveData<RegistrationState> = _registrationStatus
 
-    fun registerUser(username: String, email: String, password: String, birthDate: String) {
+    fun registerUser(username: String, email: String, password: String) {
         viewModelScope.launch {
             _registrationStatus.value = RegistrationState.Loading
 
@@ -46,8 +46,7 @@ class RegisterViewModel @Inject constructor(
                 username = username,
                 email = email,
                 hashedPassword = hashedPassword,
-                salt = salt,
-                birthDate = birthDate
+                salt = salt
             )
             repository.insert(user)
             _registrationStatus.value = RegistrationState.Success

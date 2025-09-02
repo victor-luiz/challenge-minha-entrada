@@ -58,15 +58,13 @@ class EditProfileViewModelTest {
             email = "test@email.com",
             hashedPassword = "hash",
             salt = byteArrayOf(),
-            birthDate = "01/01/2000",
         )
         (viewModel.user as androidx.lifecycle.MutableLiveData).value = originalUser
         val userSlot = slot<User>()
         coEvery { repository.update(capture(userSlot)) } returns Unit
         coEvery { repository.findByUsername(newUsername) } returns null
         viewModel.updateUser(
-            newUsername = newUsername,
-            newBirthDate = "02/02/2022",
+            newUsername = newUsername
         )
         coVerify(exactly = 1) { repository.update(any()) }
         assertEquals(newUsername, userSlot.captured.username)
@@ -83,8 +81,7 @@ class EditProfileViewModelTest {
             username = "victor",
             email = "victor@email.com",
             hashedPassword = "hash_victor",
-            salt = byteArrayOf(1, 2, 3),
-            birthDate = "01/01/2000"
+            salt = byteArrayOf(1, 2, 3)
         )
         val existingUserWithSameName = User(
             id = anotherUserId,
@@ -97,7 +94,6 @@ class EditProfileViewModelTest {
         coEvery { repository.findByUsername(newUsername) } returns existingUserWithSameName
         viewModel.updateUser(
             newUsername = newUsername,
-            newBirthDate = "01/01/2000",
         )
         assertEquals(EditProfileViewModel.UpdateState.UsernameAlreadyExists, viewModel.updateStatus.value)
         coVerify(exactly = 0) { repository.update(any()) }

@@ -19,19 +19,4 @@
                 android:layout_height="wrap_content"
         />
     </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/birthdate_input_layout_edit"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_birthdate"
-    >
-        <br.com.minhaentrada.victor.challenge.ui.components.DatePickerInputView
-                android:id="@+id/birthdate_input_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/hint_birthdate"
-        />
-    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

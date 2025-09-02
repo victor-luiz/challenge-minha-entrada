@@ -50,9 +50,8 @@ class EditProfileDialogFragment : DialogFragment() {
         val userId = arguments?.getLong(ARG_USER_ID) ?: -1L
         binding.usernameInputLayoutEdit.error = null
         val newUsername = binding.usernameEditTextEdit.text.toString().trim()
-        val newBirthDate = binding.birthdateInputEdit.text.toString().trim()
         if (newUsername.isNotEmpty()) {
-            viewModel.updateUser(newUsername, newBirthDate)
+            viewModel.updateUser(newUsername)
         } else {
             binding.usernameInputLayoutEdit.error = "O nome não pode ser vazio."
         }
@@ -62,7 +61,6 @@ class EditProfileDialogFragment : DialogFragment() {
         viewModel.user.observe(this) { user ->
             user?.let {
                 binding.usernameEditTextEdit.setText(it.username)
-                binding.birthdateInputEdit.text = it.birthDate ?: ""
             }
         }
         viewModel.updateStatus.observe(this) { state ->

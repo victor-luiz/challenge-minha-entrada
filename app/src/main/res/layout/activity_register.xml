@@ -100,7 +100,7 @@
             app:layout_constraintTop_toBottomOf="@id/password_input_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/birthdate_input_layout"
+            app:layout_constraintBottom_toTopOf="@+id/register_button"
     >
         <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/confirm_password_edit_text"
@@ -110,25 +110,6 @@
                 android:inputType="textPassword"
         />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/birthdate_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/confirm_password_input_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/register_button"
-    >
-        <br.com.minhaentrada.victor.challenge.ui.components.DatePickerInputView
-                android:id="@+id/birthdate_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_birthdate"
-        />
-    </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.button.MaterialButton
             android:id="@+id/register_button"
             android:layout_width="0dp"
@@ -136,7 +117,7 @@
             android:layout_marginTop="32dp"
             android:padding="16dp"
             android:text="@string/button_save_register"
-            app:layout_constraintTop_toBottomOf="@id/birthdate_input_layout"
+            app:layout_constraintTop_toBottomOf="@id/confirm_password_input_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

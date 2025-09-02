@@ -41,11 +41,11 @@ class RegisterViewModelTest {
 
     @Test
     fun `registerUser with new username and email should post Success state`() {
-        val newUser = User(username = "newUser", email = "new@email.com", hashedPassword = "", salt = byteArrayOf(), birthDate = "01/01/2000")
+        val newUser = User(username = "newUser", email = "new@email.com", hashedPassword = "", salt = byteArrayOf())
         coEvery { repository.findByUsername(newUser.username) } returns null
         coEvery { repository.findByEmail(newUser.email) } returns null
         coEvery { repository.insert(any()) } returns Unit
-        viewModel.registerUser(newUser.username, newUser.email, "password123", newUser.birthDate ?: "")
+        viewModel.registerUser(newUser.username, newUser.email, "password123")
         val state = viewModel.registrationStatus.value
         assertEquals(RegisterViewModel.RegistrationState.Success, state)
         coVerify(exactly = 1) { repository.insert(any()) }
@@ -56,7 +56,7 @@ class RegisterViewModelTest {
         val existingUsername = "existingUser"
         val fakeExistingUser = mockk<User>()
         coEvery { repository.findByUsername(existingUsername) } returns fakeExistingUser
-        viewModel.registerUser(existingUsername, "email@test.com", "password", "01/01/2000")
+        viewModel.registerUser(existingUsername, "email@test.com", "password")
         val state = viewModel.registrationStatus.value
         assertEquals(RegisterViewModel.RegistrationState.UsernameAlreadyExists, state)
         coVerify(exactly = 0) { repository.insert(any()) }
@@ -69,7 +69,7 @@ class RegisterViewModelTest {
         val fakeExistingUser = mockk<User>()
         coEvery { repository.findByUsername(newUsername) } returns null
         coEvery { repository.findByEmail(existingEmail) } returns fakeExistingUser
-        viewModel.registerUser(newUsername, existingEmail, "password", "01/01/2000")
+        viewModel.registerUser(newUsername, existingEmail, "password",)
         val state = viewModel.registrationStatus.value
         assertEquals(RegisterViewModel.RegistrationState.EmailAlreadyExists, state)
         coVerify(exactly = 0) { repository.insert(any()) }

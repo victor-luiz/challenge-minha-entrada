@@ -25,7 +25,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupUI() {
         setupListeners()
         observeViewModel()
-        binding.birthdateInput.setupDatePicker(supportFragmentManager)
     }
     private fun setupListeners() {
         binding.registerButton.setOnClickListener {
@@ -63,18 +62,16 @@ class RegisterActivity : AppCompatActivity() {
         val email = binding.emailEditText.text.toString().trim()
         val password = binding.passwordEditText.text.toString().trim()
         val confirmPassword = binding.confirmPasswordEditText.text.toString().trim()
-        val birthDate = binding.birthdateInput.text.toString().trim()
 
-        if (isInputValid(username, email, password, confirmPassword, birthDate)) {
-            registerViewModel.registerUser(username, email, password, birthDate)
+        if (isInputValid(username, email, password, confirmPassword)) {
+            registerViewModel.registerUser(username, email, password)
         }
     }
     private fun isInputValid(
         username: String,
         email: String,
         password: String,
-        confirm: String,
-        birthDate: String
+        confirm: String
     ): Boolean {
         if (username.isEmpty()) {
             binding.usernameInputLayout.error = getString(R.string.error_empty_field)
@@ -104,10 +101,6 @@ class RegisterActivity : AppCompatActivity() {
             binding.confirmPasswordInputLayout.error = getString(R.string.error_passwords_do_not_match)
             return false
         }
-        if (birthDate.isEmpty()) {
-            binding.birthdateInputLayout.error = getString(R.string.error_empty_field)
-            return false
-        }
         return true
     }
 
@@ -115,17 +108,12 @@ class RegisterActivity : AppCompatActivity() {
         binding.usernameInputLayout.error = null
         binding.emailInputLayout.error = null
         binding.passwordInputLayout.error = null
-        binding.confirmPasswordInputLayout.error = null // <<< Linha que faltava
-        binding.birthdateInputLayout.error = null
+        binding.confirmPasswordInputLayout.error = null
     }
 
     private fun setLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         binding.registerButton.isEnabled = !isLoading
         binding.goToLoginButton.isEnabled = !isLoading
-    }
-
-    private fun showDatePicker() {
-        binding.birthdateInput.setupDatePicker(supportFragmentManager)
     }
 }

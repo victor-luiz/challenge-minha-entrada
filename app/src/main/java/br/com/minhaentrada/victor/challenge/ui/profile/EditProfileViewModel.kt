@@ -33,8 +33,7 @@ class EditProfileViewModel @Inject constructor(
     }
 
     fun updateUser(
-        newUsername: String,
-        newBirthDate: String,
+        newUsername: String
     ) {
         _user.value?.let { currentUser ->
             viewModelScope.launch {
@@ -43,8 +42,7 @@ class EditProfileViewModel @Inject constructor(
                     _updateStatus.value = UpdateState.UsernameAlreadyExists
                 } else {
                     val updatedUser = currentUser.copy(
-                        username = newUsername,
-                        birthDate = newBirthDate
+                        username = newUsername
                     )
                     repository.update(updatedUser)
                     _updateStatus.value = UpdateState.Success

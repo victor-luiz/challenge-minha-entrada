@@ -20,10 +20,7 @@ data class User(
     val hashedPassword: String,
 
     @ColumnInfo(name = "salt")
-    val salt: ByteArray,
-
-    @ColumnInfo(name = "birth_date")
-    val birthDate: String? = null,
+    val salt: ByteArray
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -36,7 +33,6 @@ data class User(
         if (email != other.email) return false
         if (hashedPassword != other.hashedPassword) return false
         if (!salt.contentEquals(other.salt)) return false
-        if (birthDate != other.birthDate) return false
 
         return true
     }
@@ -47,7 +43,6 @@ data class User(
         result = 31 * result + email.hashCode()
         result = 31 * result + hashedPassword.hashCode()
         result = 31 * result + salt.contentHashCode()
-        result = 31 * result + (birthDate?.hashCode() ?: 0)
         return result
     }
 
