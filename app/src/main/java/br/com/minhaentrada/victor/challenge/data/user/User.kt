@@ -1,4 +1,4 @@
-package br.com.minhaentrada.victor.challenge.data
+package br.com.minhaentrada.victor.challenge.data.user
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

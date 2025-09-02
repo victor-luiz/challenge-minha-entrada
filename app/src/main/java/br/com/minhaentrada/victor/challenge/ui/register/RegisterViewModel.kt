@@ -3,14 +3,19 @@ package br.com.minhaentrada.victor.challenge.ui.register
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import br.com.minhaentrada.victor.challenge.data.User
-import br.com.minhaentrada.victor.challenge.data.UserRepository
+import br.com.minhaentrada.victor.challenge.data.user.User
+import br.com.minhaentrada.victor.challenge.data.user.UserRepository
 import br.com.minhaentrada.victor.challenge.util.SecurityUtils
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val repository: UserRepository
+) : ViewModel() {
+
     sealed class RegistrationState {
         object Success : RegistrationState()
         object EmailAlreadyExists : RegistrationState()
@@ -24,44 +29,28 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
     fun registerUser(username: String, email: String, password: String, birthDate: String) {
         viewModelScope.launch {
             _registrationStatus.value = RegistrationState.Loading
-            if (validateUserAlreadyExists(username, email)) {
-                val salt = SecurityUtils.generateSalt()
-                val hashedPassword= SecurityUtils.hashPassword(password, salt)
-                val newUser = User(
-                    username = username,
-                    email = email,
-                    hashedPassword = hashedPassword,
-                    salt = salt,
-                    birthDate = birthDate
-                )
-                repository.insert(newUser)
-                _registrationStatus.value = RegistrationState.Success
+
+            if (repository.findByUsername(username) != null) {
+                _registrationStatus.value = RegistrationState.UsernameAlreadyExists
+                return@launch
             }
-        }
-    }
 
-    suspend fun validateUserAlreadyExists(username: String, email: String): Boolean {
-        val existingUserByUsername = repository.findByUsername(username)
-        if (existingUserByUsername != null) {
-            _registrationStatus.value = RegistrationState.UsernameAlreadyExists
-            return false
+            if (repository.findByEmail(email) != null) {
+                _registrationStatus.value = RegistrationState.EmailAlreadyExists
+                return@launch
+            }
 
+            val salt = SecurityUtils.generateSalt()
+            val hashedPassword = SecurityUtils.hashPassword(password, salt)
+            val user = User(
+                username = username,
+                email = email,
+                hashedPassword = hashedPassword,
+                salt = salt,
+                birthDate = birthDate
+            )
+            repository.insert(user)
+            _registrationStatus.value = RegistrationState.Success
         }
-        val existingUserByEmail = repository.findByEmail(email)
-        if (existingUserByEmail != null) {
-            _registrationStatus.value = RegistrationState.EmailAlreadyExists
-            return false
-        }
-        return true
-    }
-}
-
-class RegisterViewModelFactory(private val repository: UserRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return RegisterViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

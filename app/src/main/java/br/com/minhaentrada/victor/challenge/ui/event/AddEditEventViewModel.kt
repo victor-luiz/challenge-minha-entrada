@@ -3,15 +3,19 @@ package br.com.minhaentrada.victor.challenge.ui.event
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import br.com.minhaentrada.victor.challenge.data.Event
-import br.com.minhaentrada.victor.challenge.data.EventCategory
-import br.com.minhaentrada.victor.challenge.data.EventRepository
+import br.com.minhaentrada.victor.challenge.data.event.Event
+import br.com.minhaentrada.victor.challenge.data.event.EnumEventCategory
+import br.com.minhaentrada.victor.challenge.data.event.EventRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
+import javax.inject.Inject
 
-class AddEditEventViewModel(private val repository: EventRepository) : ViewModel() {
+@HiltViewModel
+class AddEditEventViewModel @Inject constructor(
+    private val repository: EventRepository
+) : ViewModel() {
     private val _event = MutableLiveData<Event?>()
     val event: LiveData<Event?> = _event
 
@@ -30,7 +34,7 @@ class AddEditEventViewModel(private val repository: EventRepository) : ViewModel
         title: String,
         description: String,
         eventDate: Date,
-        category: EventCategory,
+        category: EnumEventCategory,
         city: String,
         state: String
     ) {
@@ -60,15 +64,5 @@ class AddEditEventViewModel(private val repository: EventRepository) : ViewModel
             }
             _saveComplete.value = true
         }
-    }
-}
-
-class AddEditEventViewModelFactory(private val repository: EventRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(AddEditEventViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return AddEditEventViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

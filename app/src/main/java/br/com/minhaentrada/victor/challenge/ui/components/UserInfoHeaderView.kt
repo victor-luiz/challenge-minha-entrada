@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import br.com.minhaentrada.victor.challenge.data.User
+import br.com.minhaentrada.victor.challenge.data.user.User
 import br.com.minhaentrada.victor.challenge.databinding.ComponentUserInfoHeaderBinding
 import br.com.minhaentrada.victor.challenge.util.DateUtils
 

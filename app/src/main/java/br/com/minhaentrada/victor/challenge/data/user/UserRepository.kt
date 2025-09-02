@@ -1,4 +1,4 @@
-package br.com.minhaentrada.victor.challenge.data
+package br.com.minhaentrada.victor.challenge.data.user
 
 class UserRepository(private val userDao: UserDao) {
 
@@ -12,6 +12,10 @@ class UserRepository(private val userDao: UserDao) {
 
     suspend fun findByUsername(username: String): User? {
         return userDao.findByUsername(username)
+    }
+
+    suspend fun findUserByIdentifier(identifier: String): User? {
+        return this.findByUsername(identifier) ?: this.findByEmail(identifier)
     }
 
     suspend fun findById(userId: Long): User? {

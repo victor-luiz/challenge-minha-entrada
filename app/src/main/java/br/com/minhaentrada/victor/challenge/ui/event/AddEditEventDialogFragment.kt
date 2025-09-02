@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
@@ -12,21 +11,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import br.com.minhaentrada.victor.challenge.R
-import br.com.minhaentrada.victor.challenge.data.AppDatabase
-import br.com.minhaentrada.victor.challenge.data.EventCategory
-import br.com.minhaentrada.victor.challenge.data.EventRepository
+import br.com.minhaentrada.victor.challenge.data.event.EnumEventCategory
 import br.com.minhaentrada.victor.challenge.ui.components.LocationSelectorView
 import com.google.android.material.textfield.TextInputEditText
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class AddEditEventDialogFragment : DialogFragment() {
 
-    private val viewModel: AddEditEventViewModel by viewModels {
-        AddEditEventViewModelFactory(
-            EventRepository(AppDatabase.getDatabase(requireContext()).eventDao())
-        )
-    }
+    private val viewModel: AddEditEventViewModel by viewModels()
 
     private val selectedCalendar = Calendar.getInstance()
 
@@ -73,9 +68,9 @@ class AddEditEventDialogFragment : DialogFragment() {
                 val title = titleEditText.text.toString().trim()
                 val description = descriptionEditText.text.toString().trim()
                 val selectedCategoryString = categoryAutocomplete.text.toString()
-                val category = EventCategory.entries.find {
+                val category = EnumEventCategory.entries.find {
                     getString(it.displayNameResId) == selectedCategoryString
-                } ?: EventCategory.PARTY
+                } ?: EnumEventCategory.PARTY
                 val state = locationSelector.selectedState
                 val city = locationSelector.selectedCity
 
@@ -95,7 +90,7 @@ class AddEditEventDialogFragment : DialogFragment() {
     }
 
     private fun setupCategoryDropdown(categoryAutocomplete: AutoCompleteTextView) {
-        val categories = EventCategory.entries.map { getString(it.displayNameResId) }
+        val categories = EnumEventCategory.entries.map { getString(it.displayNameResId) }
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories)
         categoryAutocomplete.setAdapter(adapter)
     }

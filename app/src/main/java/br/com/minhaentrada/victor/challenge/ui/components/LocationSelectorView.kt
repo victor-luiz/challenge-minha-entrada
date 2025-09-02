@@ -63,8 +63,10 @@ class LocationSelectorView @JvmOverloads constructor(
                 val citiesAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, cities)
                 binding.cityAutocomplete.setAdapter(citiesAdapter)
                 binding.cityAutocomplete.isEnabled = true
+                binding.cityInputLayout.isEnabled = true
             } else {
                 binding.cityAutocomplete.setAdapter(null)
+                binding.cityInputLayout.isEnabled = false
                 binding.cityInputLayout.isEnabled = false
             }
         }

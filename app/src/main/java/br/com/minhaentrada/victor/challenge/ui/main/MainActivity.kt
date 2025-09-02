@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,42 +14,55 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.core.content.ContextCompat
-import br.com.minhaentrada.victor.challenge.data.AppDatabase
-import br.com.minhaentrada.victor.challenge.data.User
-import br.com.minhaentrada.victor.challenge.data.UserRepository
 import br.com.minhaentrada.victor.challenge.databinding.ActivityMainBinding
 import br.com.minhaentrada.victor.challenge.ui.login.LoginActivity
 import br.com.minhaentrada.victor.challenge.ui.profile.EditProfileDialogFragment
-import br.com.minhaentrada.victor.challenge.util.DateUtils
 import br.com.minhaentrada.victor.challenge.R
-import br.com.minhaentrada.victor.challenge.data.EventRepository
 import br.com.minhaentrada.victor.challenge.ui.event.AddEditEventDialogFragment
 import br.com.minhaentrada.victor.challenge.ui.event.EventActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var eventAdapter: EventAdapter
-
-
-    private val mainViewModel: MainViewModel by viewModels {
-        MainViewModelFactory(
-            UserRepository(AppDatabase.Companion.getDatabase(applicationContext).userDao()),
-            EventRepository(AppDatabase.getDatabase(applicationContext).eventDao())
-
-        )
-    }
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupUI()
+        setupObservers()
+
+        mainViewModel.loadInitialData()
+    }
+
+    private fun setupUI() {
         setSupportActionBar(binding.toolbar)
         setupRecyclerView()
-        val sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE)
-        mainViewModel.loadInitialData(sharedPreferences)
-        observeViewModel()
-        setupFragmentResultListener()
         setupFab()
+        setupFragmentResultListener()
+    }
+
+    private fun setupObservers() {
+        mainViewModel.user.observe(this) { user ->
+            user?.let { binding.userInfoHeader.bindUser(it) } ?: goToLoginActivity()
+        }
+        mainViewModel.events.observe(this) { eventList ->
+            eventAdapter.submitList(eventList)
+            updateEmptyState(eventList.isEmpty())
+        }
+        mainViewModel.logoutComplete.observe(this) { isComplete ->
+            if (isComplete) goToLoginActivity()
+        }
+        mainViewModel.deleteComplete.observe(this) { isComplete ->
+            if (isComplete) {
+                Toast.makeText(this, "Conta excluída com sucesso.", Toast.LENGTH_LONG).show()
+                goToLoginActivity()
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -99,32 +111,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-        if (menu is MenuBuilder) {
-            val menuBuilder = menu as MenuBuilder
-            menuBuilder.setOptionalIconsVisible(true)
-        }
+        (menu as? MenuBuilder)?.setOptionalIconsVisible(true)
+
         try {
-            val editColor = ContextCompat.getColor(this, R.color.color_icon_edit)
-            val deleteColor = ContextCompat.getColor(this, R.color.color_icon_delete)
-            val logoutColor = ContextCompat.getColor(this, R.color.color_icon_logout)
-
-            val editItem = menu?.findItem(R.id.action_edit_profile)
-            editItem?.icon?.setTint(editColor)
-            val editTitle = SpannableString(editItem?.title)
-            editTitle.setSpan(ForegroundColorSpan(editColor), 0, editTitle.length, 0)
-            editItem?.title = editTitle
-
-            val deleteItem = menu?.findItem(R.id.action_delete_account)
-            deleteItem?.icon?.setTint(deleteColor)
-            val deleteTitle = SpannableString(deleteItem?.title)
-            deleteTitle.setSpan(ForegroundColorSpan(deleteColor), 0, deleteTitle.length, 0)
-            deleteItem?.title = deleteTitle
-
-            val logoutItem = menu?.findItem(R.id.action_logout)
-            logoutItem?.icon?.setTint(logoutColor)
-            val logoutTitle = SpannableString(logoutItem?.title)
-            logoutTitle.setSpan(ForegroundColorSpan(logoutColor), 0, logoutTitle.length, 0)
-            logoutItem?.title = logoutTitle
+            colorMenuItem(menu?.findItem(R.id.action_edit_profile), ContextCompat.getColor(this, R.color.color_icon_edit))
+            colorMenuItem(menu?.findItem(R.id.action_delete_account), ContextCompat.getColor(this, R.color.color_icon_delete))
+            colorMenuItem(menu?.findItem(R.id.action_logout), ContextCompat.getColor(this, R.color.color_icon_logout))
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -134,8 +126,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_logout -> {
-                val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-                mainViewModel.logout(sharedPreferences)
+                mainViewModel.logout()
                 true
             }
             R.id.action_edit_profile -> {
@@ -152,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                     .setPositiveButton("Sim, Excluir") { _, _ ->
                         mainViewModel.user.value?.let { user ->
                             val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-                            mainViewModel.deleteUser(user, sharedPreferences)
+                            mainViewModel.deleteUser(user)
                         }
                     }
                     .setNegativeButton("Cancelar", null)
@@ -163,10 +154,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateEmptyState(isListEmpty: Boolean) {
+        binding.eventsRecyclerView.visibility = if (isListEmpty) View.GONE else View.VISIBLE
+        binding.emptyListTextView.visibility = if (isListEmpty) View.VISIBLE else View.GONE
+    }
+
+    private fun colorMenuItem(item: MenuItem?, color: Int) {
+        item?.let {
+            val spannableString = SpannableString(it.title)
+            spannableString.setSpan(ForegroundColorSpan(color), 0, spannableString.length, 0)
+            it.title = spannableString
+            it.icon?.setTint(color)
+        }
+    }
+
     private fun setupFragmentResultListener() {
         supportFragmentManager.setFragmentResultListener("profileEdited", this) { requestKey, bundle ->
-            val sharedPreferences = getSharedPreferences("user_session", Context.MODE_PRIVATE)
-            mainViewModel.loadInitialData(sharedPreferences)
+            mainViewModel.loadInitialData()
         }
         supportFragmentManager.setFragmentResultListener("event_saved", this) { _, _ ->
             Toast.makeText(this, "Evento salvo com sucesso!", Toast.LENGTH_SHORT).show()

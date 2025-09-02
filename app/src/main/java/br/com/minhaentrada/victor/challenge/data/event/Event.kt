@@ -1,9 +1,10 @@
-package br.com.minhaentrada.victor.challenge.data
+package br.com.minhaentrada.victor.challenge.data.event
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import br.com.minhaentrada.victor.challenge.data.user.User
 import java.util.Date
 
 @Entity(
@@ -29,7 +30,7 @@ data class Event(
     val eventDate: Date,
 
     @ColumnInfo(name = "category")
-    val category: EventCategory,
+    val category: EnumEventCategory,
 
     @ColumnInfo(name = "state")
     val state: String,

@@ -3,13 +3,17 @@ package br.com.minhaentrada.victor.challenge.ui.event
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import br.com.minhaentrada.victor.challenge.data.Event
-import br.com.minhaentrada.victor.challenge.data.EventRepository
+import br.com.minhaentrada.victor.challenge.data.event.Event
+import br.com.minhaentrada.victor.challenge.data.event.EventRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EventViewModel(private val repository: EventRepository) : ViewModel() {
+@HiltViewModel
+class EventViewModel @Inject constructor(
+    private val repository: EventRepository
+) : ViewModel() {
 
     private val _event = MutableLiveData<Event?>()
     val event: LiveData<Event?> = _event
@@ -34,16 +38,5 @@ class EventViewModel(private val repository: EventRepository) : ViewModel() {
                 _deleteComplete.value = true
             }
         }
-    }
-}
-
-
-class EventViewModelFactory(private val repository: EventRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(EventViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return EventViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

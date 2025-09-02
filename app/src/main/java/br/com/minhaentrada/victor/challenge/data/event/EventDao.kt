@@ -1,4 +1,4 @@
-package br.com.minhaentrada.victor.challenge.data
+package br.com.minhaentrada.victor.challenge.data.event
 
 import androidx.room.Dao
 import androidx.room.Delete

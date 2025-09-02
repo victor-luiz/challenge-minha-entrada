@@ -1,10 +1,10 @@
-package br.com.minhaentrada.victor.challenge.data
+package br.com.minhaentrada.victor.challenge.data.event
 
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import br.com.minhaentrada.victor.challenge.R
 
-enum class EventCategory(
+enum class EnumEventCategory(
     @get:StringRes val displayNameResId: Int,
     @get:ColorRes val colorResId: Int
 ) {
